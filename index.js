@@ -1,28 +1,31 @@
-import express from "express";
-
-import {
-  getNote,
-  getNotes,
-  createNote,
-  deleteNote,
-  updateNote,
-} from "./database/database.js";
-
-import { createPaymentForm } from "./database/payment_form_database.js";
-import { createContactUsForm } from "./database/contact_us_database.js";
-
-import { matchPromoCode } from "./database/promo_code_database.js";
-import { createPayment } from "./database/payment_database.js";
-
-import cors from "cors";
+const express = require("express");
 const app = express();
+const cors = require("cors");
+
+// import {
+//   getNote,
+//   getNotes,
+//   createNote,
+//   deleteNote,
+//   updateNote,
+// } from "./database/database.js";
+
+const createPaymentForm = require("./database/payment_form_database.js");
+const createContactUsForm = require("./database/contact_us_database.js");
+const matchPromoCode = require("./database/promo_code_database.js");
+const createPayment = require("./database/payment_database.js");
 
 app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({ message: "Hello World!!" });
-  res.send("Hello World!!");
+  // res.send("Hello World!!");
+});
+
+app.get("/api", (req, res) => {
+  res.json({ message: "Hello World  api !!" });
+  // res.send("Hello World api!!");
 });
 
 // app.get("/api/notes", async (req, res) => {
@@ -56,12 +59,12 @@ app.get("/", (req, res) => {
 //   res.status(206).send(note);
 // });
 
-app.get("/api/paymentForm/:id", async (req, res) => {
-  const id = req.params.id;
+// app.get("/api/paymentForm/:id", async (req, res) => {
+//   const id = req.params.id;
 
-  const note = await updateNote(id, title, contents);
-  res.status(206).send(note);
-});
+//   const note = await updateNote(id, title, contents);
+//   res.status(206).send(note);
+// });
 
 app.post("/api/paymentForm", async (req, res) => {
   const {
@@ -146,5 +149,4 @@ app.use((err, req, res, next) => {
   res.status(500).send("seomthing broke");
 });
 
-const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

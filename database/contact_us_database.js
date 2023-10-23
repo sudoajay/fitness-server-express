@@ -1,6 +1,5 @@
-import mysql from "mysql2";
-
-import dotenv from "dotenv";
+const mysql = require("mysql2");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const pool = mysql
@@ -14,7 +13,7 @@ const pool = mysql
 
 //unexpected reserved word 'await'
 
-export async function getNote(id) {
+async function getNote(id) {
   const [rows] = await pool.query(
     `
   SELECT * 
@@ -26,7 +25,7 @@ export async function getNote(id) {
   return rows[0];
 }
 
-export async function createContactUsForm(fullName, email, message) {
+async function createContactUsForm(fullName, email, message) {
   const [result] = await pool.query(
     `
   INSERT INTO ContactUsTable (FullName,Email,Message)

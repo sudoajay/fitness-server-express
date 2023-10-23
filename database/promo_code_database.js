@@ -1,6 +1,5 @@
-import mysql, { raw } from "mysql2";
-
-import dotenv from "dotenv";
+const mysql = require("mysql2");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const pool = mysql
@@ -12,7 +11,7 @@ const pool = mysql
   })
   .promise();
 
-export async function matchPromoCode(promoCode) {
+async function matchPromoCode(promoCode) {
   const [PercentOff] = await pool.query(
     `
     SELECT PercentOff 
