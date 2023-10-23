@@ -1,25 +1,16 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
-
-// import {
-//   getNote,
-//   getNotes,
-//   createNote,
-//   deleteNote,
-//   updateNote,
-// } from "./database/database.js";
 
 const createPaymentForm = require("./database/payment_form_database.js");
 const createContactUsForm = require("./database/contact_us_database.js");
 const matchPromoCode = require("./database/promo_code_database.js");
 const createPayment = require("./database/payment_database.js");
 
-app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({ message: "Hello World!!" });
+
   // res.send("Hello World!!");
 });
 
@@ -89,7 +80,7 @@ app.post("/api/paymentForm", async (req, res) => {
     PromoCode,
     Referralcode
   );
-  res.status(210).send(data);
+  res.json(true);
 });
 
 app.post("/api/payment", async (req, res) => {
@@ -124,22 +115,17 @@ app.post("/api/payment", async (req, res) => {
     AccessToken
   );
   res.json(true);
-
-  res.status(210).send(data);
 });
 app.get("/api/promocode/:promo", async (req, res) => {
   const promo = req.params.promo;
   const output = await matchPromoCode(promo);
   res.json(output);
-  res.status(200).send(output);
 });
 
 app.post("/api/contact", async (req, res) => {
   const { FullName, Email, Message } = req.body;
   const data = await createContactUsForm(FullName, Email, Message);
   res.json(data);
-
-  res.status(200).send(req.body);
 });
 
 app.post("/api/login", async (req, res) => {});
@@ -149,4 +135,5 @@ app.use((err, req, res, next) => {
   res.status(500).send("seomthing broke");
 });
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

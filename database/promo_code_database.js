@@ -23,3 +23,5 @@ async function matchPromoCode(promoCode) {
 
   return PercentOff[0] ? PercentOff[0] : { PercentOff: false };
 }
+
+module.exports = matchPromoCode;

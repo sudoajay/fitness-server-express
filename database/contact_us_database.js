@@ -36,3 +36,5 @@ async function createContactUsForm(fullName, email, message) {
   const id = result.insertId;
   return getNote(id);
 }
+
+module.exports = createContactUsForm;

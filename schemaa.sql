@@ -61,3 +61,17 @@ USE fitness_plan_database;
        );  
  INSERT INTO PaymentTable (FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,Referralcode,PaymentMethod,PaymentID,OrderID,AccessToken)
   VALUES ("Ajay","15","sudoajay@gmail.com","956865","india","Items","45 $","AJA50","AJA50","Papal","asdas","asda","asdasa")
+
+
+
+USE fitness_plan_database; 
+ 
+ CREATE TABLE FitnessFreeFormTable (   
+    ID integer PRIMARY KEY AUTO_INCREMENT,   
+    FullName TEXT NOT NULL,   
+    Age TEXT NOT NULL,   
+    Email TEXT NOT NULL,
+     PhoneNumber TEXT NOT NULL,   
+    Information LONGTEXT NOT NULL,   
+    Created TIMESTAMP NOT NULL DEFAULT NOW()
+       );  

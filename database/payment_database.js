@@ -69,3 +69,5 @@ async function createPayment(
   const id = result.insertId;
   return getNote(id);
 }
+
+module.exports = createPayment;

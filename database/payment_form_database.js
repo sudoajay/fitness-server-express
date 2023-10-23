@@ -32,7 +32,6 @@ async function createPaymentForm(
   email,
   phoneNumber,
   information,
-
   product,
   amount,
   promoCode,
@@ -59,3 +58,5 @@ async function createPaymentForm(
   const id = result.insertId;
   return getNote(id);
 }
+
+module.exports = createPaymentForm;
