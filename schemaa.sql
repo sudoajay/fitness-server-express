@@ -75,3 +75,51 @@ USE fitness_plan_database;
     Information LONGTEXT NOT NULL,   
     Created TIMESTAMP NOT NULL DEFAULT NOW()
        );  
+
+
+
+USE fitness_plan_database; 
+ 
+ CREATE TABLE AppInformationTable (   
+    ID integer PRIMARY KEY AUTO_INCREMENT,   
+    AppTitle TEXT NOT NULL,   
+    AppDescription TEXT NOT NULL,   
+    AppKeywords TEXT NOT NULL,
+     MainTitle TEXT NOT NULL,   
+    MainDescription TEXT NOT NULL,   
+    Created TIMESTAMP NOT NULL DEFAULT NOW()
+       );  
+INSERT INTO AppInformationTable (AppTitle, AppDescription,AppKeywords,MainTitle,MainDescription)
+  VALUES ("Sudoajay","Hello Description app","AppKeywords" , "Welcome to site" , "have  purchase anything")
+
+   IF EXISTS (SELECT * FROM AppInformationTable WHERE id = 1)
+    BEGIN
+    UPDATE AppInformationTable SET AppTitle = "hello" , AppDescription ="hello description"  ,AppKeywords ="hello keywords" , MainTitle ="hello maintitle" , 
+    MainDescription="hello Main description" WHERE id = 1
+    
+   END
+   ELSE
+   BEGIN
+ INSERT INTO AppInformationTable (AppTitle, AppDescription,AppKeywords,MainTitle,MainDescription)
+  VALUES ("Sudoajay","Hello Description app","AppKeywords" , "Welcome to site" , "have  purchase anything")
+   END
+
+   INSERT INTO AppInformationTable ( ID,AppTitle, AppDescription,AppKeywords,MainTitle,MainDescription)
+  VALUES ( 1, "Sudoajay","Hello Description app","AppKeywords" , "Welcome to site" , "have  purchase anything") ON DUPLICATE KEY UPDATE    
+AppTitle="helloassa", AppDescription ="hello descriptioasn"
+
+
+USE fitness_plan_database; 
+ 
+ CREATE TABLE ItemDetailTable (   
+    ID integer PRIMARY KEY AUTO_INCREMENT,   
+    ItemSlug TEXT NOT NULL,   
+    ItemTitle TEXT NOT NULL,   
+    ItemDescription TEXT NOT NULL,
+     ItemAmount TEXT NOT NULL,   
+    ItemPrice TEXT NOT NULL,   
+      ItemMainImage TEXT NOT NULL,   
+          ItemImages TEXT NOT NULL,   
+
+    Created TIMESTAMP NOT NULL DEFAULT NOW()
+       );  
