@@ -82,6 +82,7 @@ USE fitness_plan_database;
  
  CREATE TABLE AppInformationTable (   
     ID integer PRIMARY KEY AUTO_INCREMENT,   
+    AppIcon Text NOT NULL,
     AppTitle TEXT NOT NULL,   
     AppDescription TEXT NOT NULL,   
     AppKeywords TEXT NOT NULL,
@@ -123,3 +124,42 @@ USE fitness_plan_database;
 
     Created TIMESTAMP NOT NULL DEFAULT NOW()
        );  
+
+
+       USE fitness_plan_database; 
+ 
+ CREATE TABLE LoginDetailTable (   
+    ID integer PRIMARY KEY AUTO_INCREMENT,   
+    UserName TEXT NOT NULL,   
+    PassWord TEXT NOT NULL,   
+    Role TEXT NOT NULL,   
+    Status boolean NOT NULL,   
+    PromoCode TEXT NOT NULL,   
+    PercentOff TEXT NOT NULL,   
+    Name TEXT NOT NULL,   
+    Country TEXT NOT NULL,   
+    Email TEXT NOT NULL,  
+    Image Text Not null, 
+    Phone TEXT NOT NULL,   
+    Gender TEXT NOT NULL,   
+    Created TIMESTAMP NOT NULL DEFAULT NOW()
+       );  
+
+
+        INSERT INTO LoginDetailTable (UserName, PassWord,Role,Status,PromoCode,PercentOff,Name,Country,Email,Image,Phone,Gender)
+  VALUES ("Saurav","123","Admin",1,"AJA50","50","Saurav Singh","India","sudoajay@gmail.com","","9568855513", "M");
+
+
+
+ CREATE TABLE FAQDetailTable (   
+    ID integer PRIMARY KEY AUTO_INCREMENT,   
+    Question TEXT NOT NULL,   
+    Answer TEXT NOT NULL,    
+    Created TIMESTAMP NOT NULL DEFAULT NOW()
+       );  
+
+       INSERT INTO FAQDetailTable (Question, Answer)
+  VALUES ("How long are the workout sessions for each plan?","The workout sessions for each plan typically range from 45 minutes to an hour. It is recommended to allocate an additional 10 minutes for a warm-up before starting the workout.");
+
+         INSERT INTO FAQDetailTable (Question, Answer)
+  VALUES ("What fitness level do I need to be at to start these workout plans?","These workout plans are specifically designed for beginners who are just starting their fitness journey. They are suitable for individuals who have never been to the gym before or those who are new to exercise.");

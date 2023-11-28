@@ -64,19 +64,22 @@ async function getAppInformation(id = 1) {
 async function setAppInformation(id = 1, jsonBody) {
   const [result] = await pool.query(
     `
-    INSERT INTO AppInformationTable ( ID,AppTitle, AppDescription,AppKeywords,MainTitle,MainDescription)
-    VALUES ( ?, ?,?,?,?,?) ON DUPLICATE KEY UPDATE    
+    INSERT INTO AppInformationTable ( ID,AppIcon,AppTitle, AppDescription,AppKeywords,MainTitle,MainDescription)
+    VALUES ( ?, ?,?,?,?,?,?) ON DUPLICATE KEY UPDATE     
+    AppIcon=?,
     AppTitle=?, AppDescription =? , AppKeywords=?, MainTitle=?,MainDescription=?
   
     
       `,
     [
       id,
+      jsonBody.AppIcon,
       jsonBody.AppTitle,
       jsonBody.AppDescription,
       jsonBody.AppKeywords,
       jsonBody.MainTitle,
       jsonBody.MainDescription,
+      jsonBody.AppIcon,
       jsonBody.AppTitle,
       jsonBody.AppDescription,
       jsonBody.AppKeywords,
@@ -84,5 +87,6 @@ async function setAppInformation(id = 1, jsonBody) {
       jsonBody.MainDescription,
     ]
   );
+  return getAppInformation(id);
 }
 module.exports = { getAppInformation, setAppInformation };

@@ -25,15 +25,52 @@ async function getItemDetail(id) {
   return rows[0];
 }
 
-async function setItemDetail(id, jsonBody) {
+async function getAllItemDetail() {
+  const [rows] = await pool.query(
+    `
+  SELECT * 
+  FROM ItemDetailTable
+ 
+  `
+  );
+  return rows;
+}
+
+// async function setItemDetail(id, jsonBody) {
+//   const [result] = await pool.query(
+//     `
+//     INSERT INTO ItemDetailTable ( ID,ItemSlug, ItemTitle,ItemDescription,ItemAmount,ItemPrice,ItemMainImage,ItemImages )
+//     VALUES ( ?, ?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE
+//     ItemSlug=?, ItemTitle =? , ItemDescription=?, ItemAmount=?,ItemPrice=?, ItemMainImage=? ,ItemImages=?
+//       `,
+//     [
+//       id,
+//       jsonBody.ItemSlug,
+//       jsonBody.ItemTitle,
+//       jsonBody.ItemDescription,
+//       jsonBody.ItemAmount,
+//       jsonBody.ItemPrice,
+//       jsonBody.ItemMainImage,
+//       jsonBody.ItemImages,
+//       jsonBody.ItemSlug,
+//       jsonBody.ItemTitle,
+//       jsonBody.ItemDescription,
+//       jsonBody.ItemAmount,
+//       jsonBody.ItemPrice,
+//       jsonBody.ItemMainImage,
+//       jsonBody.ItemImages,
+//     ]
+//   );
+//   return getItemDetail(id);
+// }
+
+async function updateItemDetail(jsonBody) {
   const [result] = await pool.query(
     `
-    INSERT INTO ItemDetailTable ( ID,ItemSlug, ItemTitle,ItemDescription,ItemAmount,ItemPrice,ItemMainImage,ItemImages )
-    VALUES ( ?, ?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE    
-    ItemSlug=?, ItemTitle =? , ItemDescription=?, ItemAmount=?,ItemPrice=?, ItemMainImage=? ,ItemImages=?
+    UPDATE ItemDetailTable SET ItemSlug=?, ItemTitle =? , ItemDescription=?, ItemAmount=?,ItemPrice=?, ItemMainImage=? ,ItemImages=?  WHERE id = ?
+
       `,
     [
-      id,
       jsonBody.ItemSlug,
       jsonBody.ItemTitle,
       jsonBody.ItemDescription,
@@ -41,6 +78,20 @@ async function setItemDetail(id, jsonBody) {
       jsonBody.ItemPrice,
       jsonBody.ItemMainImage,
       jsonBody.ItemImages,
+      jsonBody.ID,
+    ]
+  );
+  return result[0];
+}
+
+async function setNewItemDetail(jsonBody) {
+  const [result] = await pool.query(
+    `
+    INSERT INTO ItemDetailTable ( ItemSlug, ItemTitle,ItemDescription,ItemAmount,ItemPrice,ItemMainImage,ItemImages )
+    VALUES (  ?,?,?,?,?,?,?)
+  
+      `,
+    [
       jsonBody.ItemSlug,
       jsonBody.ItemTitle,
       jsonBody.ItemDescription,
@@ -50,17 +101,21 @@ async function setItemDetail(id, jsonBody) {
       jsonBody.ItemImages,
     ]
   );
-  return getItemDetail(id);
+  return result[0];
 }
 
-async function getTotalItem() {
+async function deleteItem(id) {
   const [rows] = await pool.query(
     `
-    SELECT  COUNT(*) AS Count
-  FROM ItemDetailTable
-  
-  `
+    DELETE FROM ItemDetailTable WHERE id = ?
+    `,
+    [id]
   );
-  return rows[0];
 }
-module.exports = { getItemDetail, setItemDetail, getTotalItem };
+module.exports = {
+  getItemDetail,
+  deleteItem,
+  getAllItemDetail,
+  updateItemDetail,
+  setNewItemDetail,
+};

@@ -26,33 +26,22 @@ async function getNote(id) {
   return rows[0];
 }
 
-async function createPaymentForm(
-  fullName,
-  age,
-  email,
-  phoneNumber,
-  information,
-  product,
-  amount,
-  promoCode,
-  referralcode
-) {
+async function createPaymentForm(jsonBody) {
   const [result] = await pool.query(
     `
   INSERT INTO PaymentFormTable (FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,Referralcode)
   VALUES (?,?,?,?,?,?,?,?,?)
   `,
     [
-      fullName,
-      age,
-      email,
-      phoneNumber,
-      information,
-
-      product,
-      amount,
-      promoCode,
-      referralcode,
+      jsonBody.FullName,
+      jsonBody.Age,
+      jsonBody.Email,
+      jsonBody.PhoneNumber,
+      jsonBody.Information,
+      jsonBody.Product,
+      jsonBody.Amount,
+      jsonBody.PromoCode,
+      jsonBody.ReferralCode,
     ]
   );
   const id = result.insertId;

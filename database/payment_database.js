@@ -25,21 +25,7 @@ async function getNote(id) {
   return rows[0];
 }
 
-async function createPayment(
-  fullName,
-  age,
-  email,
-  phoneNumber,
-  information,
-  product,
-  amount,
-  promoCode,
-  referralcode,
-  paymentMethod,
-  paymentID,
-  orderID,
-  accessToken
-) {
+async function createPayment(jsonBody) {
   const [result] = await pool.query(
     `
   INSERT INTO PaymentTable (FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,Referralcode,PaymentMethod,PaymentID,OrderID,AccessToken)
@@ -51,19 +37,19 @@ async function createPayment(
     ?,?,?)
   `,
     [
-      fullName,
-      age,
-      email,
-      phoneNumber,
-      information,
-      product,
-      amount,
-      promoCode,
-      referralcode,
-      paymentMethod,
-      paymentID,
-      orderID,
-      accessToken,
+      jsonBody.FullName,
+      jsonBody.Age,
+      jsonBody.Email,
+      jsonBody.PhoneNumber,
+      jsonBody.Information,
+      jsonBody.Product,
+      jsonBody.Amount,
+      jsonBody.PromoCode,
+      jsonBody.Referralcode,
+      jsonBody.PaymentMethod,
+      jsonBody.PaymentID,
+      jsonBody.OrderID,
+      jsonBody.AccessToken,
     ]
   );
   const id = result.insertId;
