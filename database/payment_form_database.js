@@ -14,7 +14,7 @@ const pool = mysql
 
 //unexpected reserved word 'await'
 
-async function getNote(id) {
+async function getPaymentForm(id) {
   const [rows] = await pool.query(
     `
   SELECT * 
@@ -45,7 +45,26 @@ async function createPaymentForm(jsonBody) {
     ]
   );
   const id = result.insertId;
-  return getNote(id);
+  return getPaymentForm(id);
 }
 
-module.exports = createPaymentForm;
+async function getAllPaymentForm() {
+  const [rows] = await pool.query(
+    `
+  SELECT * 
+  FROM PaymentFormTable
+  `,
+    []
+  );
+  return rows;
+}
+
+async function deletePaymentForm(id) {
+  const [rows] = await pool.query(
+    `
+    DELETE FROM PaymentFormTable WHERE id = ?
+    `,
+    [id]
+  );
+}
+module.exports = { createPaymentForm, getAllPaymentForm, deletePaymentForm };

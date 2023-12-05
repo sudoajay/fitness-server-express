@@ -56,4 +56,23 @@ async function createPayment(jsonBody) {
   return getNote(id);
 }
 
-module.exports = createPayment;
+async function getAllPayment() {
+  const [rows] = await pool.query(
+    `
+  SELECT * 
+  FROM PaymentTable
+  `,
+    []
+  );
+  return rows;
+}
+
+async function deletePayment(id) {
+  const [rows] = await pool.query(
+    `
+    DELETE FROM PaymentTable WHERE id = ?
+    `,
+    [id]
+  );
+}
+module.exports = { createPayment, getAllPayment, deletePayment };
