@@ -9,6 +9,7 @@ const {
   createPaymentForm,
   getAllPaymentForm,
   deletePaymentForm,
+  setPaymentForm,
 } = require("./database/payment_form_database.js");
 const createContactUsForm = require("./database/contact_us_database.js");
 const matchPromoCode = require("./database/promo_code_database.js");
@@ -16,6 +17,7 @@ const {
   createPayment,
   getAllPayment,
   deletePayment,
+  setPayment,
 } = require("./database/payment_database.js");
 const {
   matchLoginDetail,
@@ -179,10 +181,10 @@ app.get("/api", (req, res) => {
 //   res.status(206).send(note);
 // });
 
-app.post("/api/paymentForm", async (req, res) => {
-  const data = await createPaymentForm(req.body);
-  res.json(true);
-});
+// app.post("/api/paymentForm", async (req, res) => {
+//   const data = await createPaymentForm(req.body);
+//   res.json(true);
+// });
 
 app.get("/api/get/all/paymentform", async (req, res) => {
   const output = await getAllPaymentForm();
@@ -198,10 +200,18 @@ app.delete("/api/delete/paymentform/:id", async (req, res) => {
   res.status(200).json(true);
 });
 
-app.post("/api/payment", async (req, res) => {
-  const data = await createPayment(req.body);
-  res.json(true);
+app.put("/api/set/paymentform/:id", async (req, res) => {
+  const ID = req.params.id;
+
+  await setPaymentForm(ID, req.body);
+
+  res.status(200).json(true);
 });
+
+// app.post("/api/payment", async (req, res) => {
+//   const data = await createPayment(req.body);
+//   res.json(true);
+// });
 
 app.get("/api/get/all/payment", async (req, res) => {
   const output = await getAllPayment();
@@ -213,6 +223,14 @@ app.delete("/api/delete/payment/:id", async (req, res) => {
   const ID = req.params.id;
 
   await deletePayment(ID);
+
+  res.status(200).json(true);
+});
+
+app.put("/api/set/payment/:id", async (req, res) => {
+  const ID = req.params.id;
+
+  await setPayment(ID, req.body);
 
   res.status(200).json(true);
 });

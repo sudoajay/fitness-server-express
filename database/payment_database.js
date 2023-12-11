@@ -28,7 +28,7 @@ async function getNote(id) {
 async function createPayment(jsonBody) {
   const [result] = await pool.query(
     `
-  INSERT INTO PaymentTable (FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,Referralcode,PaymentMethod,PaymentID,OrderID,AccessToken)
+  INSERT INTO PaymentTable (FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,ReferralCode,PaymentMethod,PaymentID,OrderID,AccessToken)
   VALUES (?,?,
     ?,?,
     ?,?,
@@ -45,7 +45,7 @@ async function createPayment(jsonBody) {
       jsonBody.Product,
       jsonBody.Amount,
       jsonBody.PromoCode,
-      jsonBody.Referralcode,
+      jsonBody.ReferralCode,
       jsonBody.PaymentMethod,
       jsonBody.PaymentID,
       jsonBody.OrderID,
@@ -54,6 +54,47 @@ async function createPayment(jsonBody) {
   );
   const id = result.insertId;
   return getNote(id);
+}
+
+async function setPayment(id = 1, jsonBody) {
+  const [result] = await pool.query(
+    `
+    INSERT INTO PaymentTable (ID, FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,ReferralCode,PaymentMethod,PaymentID,OrderID,AccessToken)
+    VALUES ( ?, ?,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE     
+    FullName = ? , Age =?   ,Email =? , PhoneNumber =? , Information=? ,Product=?, Amount = ? , PromoCode =? ,ReferralCode=?,PaymentMethod=?,PaymentID=?,OrderID=?,AccessToken=?
+  
+    
+      `,
+    [
+      id,
+      jsonBody.FullName,
+      jsonBody.Age,
+      jsonBody.Email,
+      jsonBody.PhoneNumber,
+      jsonBody.Information,
+      jsonBody.Product,
+      jsonBody.Amount,
+      jsonBody.PromoCode,
+      jsonBody.ReferralCode,
+      jsonBody.PaymentMethod,
+      jsonBody.PaymentID,
+      jsonBody.OrderID,
+      jsonBody.AccessToken,
+      jsonBody.FullName,
+      jsonBody.Age,
+      jsonBody.Email,
+      jsonBody.PhoneNumber,
+      jsonBody.Information,
+      jsonBody.Product,
+      jsonBody.Amount,
+      jsonBody.PromoCode,
+      jsonBody.ReferralCode,
+      jsonBody.PaymentMethod,
+      jsonBody.PaymentID,
+      jsonBody.OrderID,
+      jsonBody.AccessToken,
+    ]
+  );
 }
 
 async function getAllPayment() {
@@ -75,4 +116,5 @@ async function deletePayment(id) {
     [id]
   );
 }
-module.exports = { createPayment, getAllPayment, deletePayment };
+
+module.exports = { createPayment, getAllPayment, deletePayment, setPayment };

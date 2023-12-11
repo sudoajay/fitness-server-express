@@ -67,7 +67,7 @@ async function setAppInformation(id = 1, jsonBody) {
     INSERT INTO AppInformationTable ( ID,AppIcon,AppTitle, AppDescription,AppKeywords,MainTitle,MainDescription)
     VALUES ( ?, ?,?,?,?,?,?) ON DUPLICATE KEY UPDATE     
     AppIcon=?,
-    AppTitle=?, AppDescription =? , AppKeywords=?, MainTitle=?,MainDescription=?
+    AppTitle=?, AppDescription =? , AppKeywords=?, MainTitle=?,MainDescription=? 
   
     
       `,

@@ -1,25 +1,22 @@
 -- CREATE DATABASE fitness_plan_database; 
 -- USE fitness_plan_database; 
  
---  CREATE TABLE PaymentFormTable (   
---     ID integer PRIMARY KEY AUTO_INCREMENT,   
---     FullName TEXT NOT NULL,   
---     Age TEXT NOT NULL,   
---     Email TEXT NOT NULL,
---      PhoneNumber TEXT NOT NULL,   
---     Information LONGTEXT NOT NULL,   
---     Created TIMESTAMP NOT NULL DEFAULT NOW(), 
---      Product LONGTEXT NOT NULL,   
---     Amount TEXT NOT NULL,   
---     PromoCode TEXT NOT NULL,
---      Referralcode TEXT NOT NULL 
-   --  );  
+ CREATE TABLE PaymentFormTable (   
+    ID integer PRIMARY KEY AUTO_INCREMENT,   
+    FullName TEXT NOT NULL,   
+    Age TEXT NOT NULL,   
+    Email TEXT NOT NULL,
+     PhoneNumber TEXT NOT NULL,   
+    Information LONGTEXT NOT NULL,   
+     Product LONGTEXT NOT NULL,   
+    Amount TEXT NOT NULL,   
+    PromoCode TEXT NOT NULL,
+     ReferralCode TEXT NOT NULL ,
+     Created TIMESTAMP NOT NULL DEFAULT NOW()
+    );  
 
-   --  INSERT INTO notes (title, contents) 
-   --  VALUES 
-   --   ('My First Note', 'A note about something'), 
-   --   ('My Second Note', 'A note about something else');
-
+   INSERT INTO PaymentFormTable (FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,Referralcode)
+  VALUES ("vijay","85","sudovijay@gmail.com","9568asd65","india","Itemsasd","4500","VJA50","VJA50")
 
 
 USE fitness_plan_database; 
@@ -49,18 +46,18 @@ USE fitness_plan_database;
     Email TEXT NOT NULL,
      PhoneNumber TEXT NOT NULL,   
     Information LONGTEXT NOT NULL,   
-    Created TIMESTAMP NOT NULL DEFAULT NOW(), 
      Product LONGTEXT NOT NULL,   
     Amount TEXT NOT NULL,   
     PromoCode TEXT NOT NULL,
-     Referralcode TEXT NOT NULL ,
+     ReferralCode TEXT NOT NULL ,
      PaymentMethod TEXT NOT NULL ,
       PaymentID TEXT NOT NULL ,
       OrderID TEXT NOT NULL ,
-   AccessToken TEXT NOT NULL 
+   AccessToken TEXT NOT NULL ,
+    Created TIMESTAMP NOT NULL DEFAULT NOW()
        );  
- INSERT INTO PaymentTable (FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,Referralcode,PaymentMethod,PaymentID,OrderID,AccessToken)
-  VALUES ("Ajay","15","sudoajay@gmail.com","956865","india","Items","45 $","AJA50","AJA50","Papal","asdas","asda","asdasa")
+ INSERT INTO PaymentTable (FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,ReferralCode,PaymentMethod,PaymentID,OrderID,AccessToken)
+  VALUES ("vijay","02","sudovijay@gmail.com","956865","india","Items","45","AJA50","AJA50","Papal","asdas","asda","asdasa")
 
 
 
