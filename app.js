@@ -9,7 +9,7 @@ const {
   createPaymentForm,
   getAllPaymentForm,
   deletePaymentForm,
-  setPaymentForm,
+  updatePaymentForm,
 } = require("./database/payment_form_database.js");
 const createContactUsForm = require("./database/contact_us_database.js");
 const matchPromoCode = require("./database/promo_code_database.js");
@@ -17,7 +17,7 @@ const {
   createPayment,
   getAllPayment,
   deletePayment,
-  setPayment,
+  updatePayment,
 } = require("./database/payment_database.js");
 const {
   matchLoginDetail,
@@ -181,18 +181,18 @@ app.get("/api", (req, res) => {
 //   res.status(206).send(note);
 // });
 
-// app.post("/api/paymentForm", async (req, res) => {
-//   const data = await createPaymentForm(req.body);
-//   res.json(true);
-// });
+app.post("/api/payment/form", async (req, res) => {
+  const data = await createPaymentForm(req.body);
+  res.json(true);
+});
 
-app.get("/api/get/all/paymentform", async (req, res) => {
+app.get("/api/get/all/payment/form", async (req, res) => {
   const output = await getAllPaymentForm();
 
   res.status(200).json(output);
 });
 
-app.delete("/api/delete/paymentform/:id", async (req, res) => {
+app.delete("/api/delete/payment/form/:id", async (req, res) => {
   const ID = req.params.id;
 
   await deletePaymentForm(ID);
@@ -200,18 +200,18 @@ app.delete("/api/delete/paymentform/:id", async (req, res) => {
   res.status(200).json(true);
 });
 
-app.put("/api/set/paymentform/:id", async (req, res) => {
+app.put("/api/update/payment/form/:id", async (req, res) => {
   const ID = req.params.id;
 
-  await setPaymentForm(ID, req.body);
+  await updatePaymentForm(ID, req.body);
 
   res.status(200).json(true);
 });
 
-// app.post("/api/payment", async (req, res) => {
-//   const data = await createPayment(req.body);
-//   res.json(true);
-// });
+app.post("/api/payment", async (req, res) => {
+  const data = await createPayment(req.body);
+  res.json(true);
+});
 
 app.get("/api/get/all/payment", async (req, res) => {
   const output = await getAllPayment();
@@ -227,19 +227,13 @@ app.delete("/api/delete/payment/:id", async (req, res) => {
   res.status(200).json(true);
 });
 
-app.put("/api/set/payment/:id", async (req, res) => {
+app.put("/api/update/payment/:id", async (req, res) => {
   const ID = req.params.id;
-
-  await setPayment(ID, req.body);
+  await updatePayment(ID, req.body);
 
   res.status(200).json(true);
 });
 
-app.get("/api/get/all/paymentform", async (req, res) => {
-  const output = await getAllPaymentForm();
-
-  res.status(200).json(output);
-});
 app.get("/api/promocode/:promo", async (req, res) => {
   const promo = req.params.promo;
   const output = await matchPromoCode(promo);

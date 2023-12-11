@@ -122,6 +122,8 @@ USE fitness_plan_database;
     Created TIMESTAMP NOT NULL DEFAULT NOW()
        );  
 
+INSERT INTO ItemDetailTable (ID,ItemSlug, ItemTitle,ItemDescription,ItemAmount,ItemPrice,ItemMainImage,ItemImages)
+  VALUES (2,"ajayasdasda","Tricep","hello man the asdas coem hereq" , "90" , "1000","mainImage.webp", "1.webp - 34.13 KB),(2.webp - 500.81 KB),(3.webp - 42.59 KB),(4.webp - 39.68 KB),(5.webp - 191.79 KB)");
 
        USE fitness_plan_database; 
  

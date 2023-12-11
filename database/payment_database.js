@@ -56,46 +56,70 @@ async function createPayment(jsonBody) {
   return getNote(id);
 }
 
-async function setPayment(id = 1, jsonBody) {
+async function updatePayment(id = 1, jsonBody) {
   const [result] = await pool.query(
     `
-    INSERT INTO PaymentTable (ID, FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,ReferralCode,PaymentMethod,PaymentID,OrderID,AccessToken)
-    VALUES ( ?, ?,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE     
-    FullName = ? , Age =?   ,Email =? , PhoneNumber =? , Information=? ,Product=?, Amount = ? , PromoCode =? ,ReferralCode=?,PaymentMethod=?,PaymentID=?,OrderID=?,AccessToken=?
-  
-    
+    UPDATE PaymentTable SET FullName = ? , Age =?   ,Email =? , PhoneNumber =? , Information=? ,Product=?, Amount = ? , PromoCode =? ,ReferralCode=?,PaymentMethod=?,PaymentID=?,OrderID=?,AccessToken=?
+    WHERE id = ?
       `,
     [
+      jsonBody.FullName,
+      jsonBody.Age,
+      jsonBody.Email,
+      jsonBody.PhoneNumber,
+      jsonBody.Information,
+      jsonBody.Product,
+      jsonBody.Amount,
+      jsonBody.PromoCode,
+      jsonBody.ReferralCode,
+      jsonBody.PaymentMethod,
+      jsonBody.PaymentID,
+      jsonBody.OrderID,
+      jsonBody.AccessToken,
       id,
-      jsonBody.FullName,
-      jsonBody.Age,
-      jsonBody.Email,
-      jsonBody.PhoneNumber,
-      jsonBody.Information,
-      jsonBody.Product,
-      jsonBody.Amount,
-      jsonBody.PromoCode,
-      jsonBody.ReferralCode,
-      jsonBody.PaymentMethod,
-      jsonBody.PaymentID,
-      jsonBody.OrderID,
-      jsonBody.AccessToken,
-      jsonBody.FullName,
-      jsonBody.Age,
-      jsonBody.Email,
-      jsonBody.PhoneNumber,
-      jsonBody.Information,
-      jsonBody.Product,
-      jsonBody.Amount,
-      jsonBody.PromoCode,
-      jsonBody.ReferralCode,
-      jsonBody.PaymentMethod,
-      jsonBody.PaymentID,
-      jsonBody.OrderID,
-      jsonBody.AccessToken,
     ]
   );
 }
+
+// async function setPayment(id = 1, jsonBody) {
+//   const [result] = await pool.query(
+//     `
+//     INSERT INTO PaymentTable (ID, FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,ReferralCode,PaymentMethod,PaymentID,OrderID,AccessToken)
+//     VALUES ( ?, ?,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE
+//     FullName = ? , Age =?   ,Email =? , PhoneNumber =? , Information=? ,Product=?, Amount = ? , PromoCode =? ,ReferralCode=?,PaymentMethod=?,PaymentID=?,OrderID=?,AccessToken=?
+
+//       `,
+//     [
+//       id,
+//       jsonBody.FullName,
+//       jsonBody.Age,
+//       jsonBody.Email,
+//       jsonBody.PhoneNumber,
+//       jsonBody.Information,
+//       jsonBody.Product,
+//       jsonBody.Amount,
+//       jsonBody.PromoCode,
+//       jsonBody.ReferralCode,
+//       jsonBody.PaymentMethod,
+//       jsonBody.PaymentID,
+//       jsonBody.OrderID,
+//       jsonBody.AccessToken,
+//       jsonBody.FullName,
+//       jsonBody.Age,
+//       jsonBody.Email,
+//       jsonBody.PhoneNumber,
+//       jsonBody.Information,
+//       jsonBody.Product,
+//       jsonBody.Amount,
+//       jsonBody.PromoCode,
+//       jsonBody.ReferralCode,
+//       jsonBody.PaymentMethod,
+//       jsonBody.PaymentID,
+//       jsonBody.OrderID,
+//       jsonBody.AccessToken,
+//     ]
+//   );
+// }
 
 async function getAllPayment() {
   const [rows] = await pool.query(
@@ -117,4 +141,4 @@ async function deletePayment(id) {
   );
 }
 
-module.exports = { createPayment, getAllPayment, deletePayment, setPayment };
+module.exports = { createPayment, getAllPayment, deletePayment, updatePayment };

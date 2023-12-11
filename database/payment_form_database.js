@@ -68,12 +68,36 @@ async function deletePaymentForm(id) {
   );
 }
 
-// async function updatePaymentForm(id = 1, jsonBody) {
+async function updatePaymentForm(id = 1, jsonBody) {
+  const [result] = await pool.query(
+    `
+    UPDATE PaymentFormTable SET FullName = ? , Age =?   ,Email =? , PhoneNumber =? , Information=? ,Product=?, Amount = ? , PromoCode =? ,ReferralCode=? WHERE id = ?
+      `,
+    [
+      jsonBody.FullName,
+      jsonBody.Age,
+      jsonBody.Email,
+      jsonBody.PhoneNumber,
+      jsonBody.Information,
+      jsonBody.Product,
+      jsonBody.Amount,
+      jsonBody.PromoCode,
+      jsonBody.ReferralCode,
+      id,
+    ]
+  );
+}
+
+// async function setPaymentForm(id = 1, jsonBody) {
 //   const [result] = await pool.query(
 //     `
-//     UPDATE PaymentFormTable SET FullName = ? , Age =?   ,Email =? , PhoneNumber =? , Information=? ,Product=?, Amount = ? , PromoCode =? ,ReferralCode=? WHERE id = ?
+//     INSERT INTO PaymentFormTable (ID, FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,ReferralCode)
+//     VALUES ( ?, ?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE
+//     FullName = ? , Age =?   ,Email =? , PhoneNumber =? , Information=? ,Product=?, Amount = ? , PromoCode =? ,ReferralCode=?
+
 //       `,
 //     [
+//       id,
 //       jsonBody.FullName,
 //       jsonBody.Age,
 //       jsonBody.Email,
@@ -83,46 +107,21 @@ async function deletePaymentForm(id) {
 //       jsonBody.Amount,
 //       jsonBody.PromoCode,
 //       jsonBody.ReferralCode,
-//       id,
+//       jsonBody.FullName,
+//       jsonBody.Age,
+//       jsonBody.Email,
+//       jsonBody.PhoneNumber,
+//       jsonBody.Information,
+//       jsonBody.Product,
+//       jsonBody.Amount,
+//       jsonBody.PromoCode,
+//       jsonBody.ReferralCode,
 //     ]
 //   );
 // }
-
-async function setPaymentForm(id = 1, jsonBody) {
-  const [result] = await pool.query(
-    `
-    INSERT INTO PaymentFormTable (ID, FullName, Age,Email,PhoneNumber,Information,Product,Amount,PromoCode,ReferralCode)
-    VALUES ( ?, ?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE     
-    FullName = ? , Age =?   ,Email =? , PhoneNumber =? , Information=? ,Product=?, Amount = ? , PromoCode =? ,ReferralCode=?
-  
-    
-      `,
-    [
-      id,
-      jsonBody.FullName,
-      jsonBody.Age,
-      jsonBody.Email,
-      jsonBody.PhoneNumber,
-      jsonBody.Information,
-      jsonBody.Product,
-      jsonBody.Amount,
-      jsonBody.PromoCode,
-      jsonBody.ReferralCode,
-      jsonBody.FullName,
-      jsonBody.Age,
-      jsonBody.Email,
-      jsonBody.PhoneNumber,
-      jsonBody.Information,
-      jsonBody.Product,
-      jsonBody.Amount,
-      jsonBody.PromoCode,
-      jsonBody.ReferralCode,
-    ]
-  );
-}
 module.exports = {
   createPaymentForm,
   getAllPaymentForm,
   deletePaymentForm,
-  setPaymentForm,
+  updatePaymentForm,
 };
