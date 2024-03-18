@@ -55,7 +55,7 @@ app.use(express.json());
 // Use cors middleware to enable CORS
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3001",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // enable set cookie with CORS
   })
